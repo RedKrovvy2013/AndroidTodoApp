@@ -11,7 +11,7 @@
     tools:context="com.todoapp.MainActivity">
 
     <Button
-        android:text="Submit"
+        android:text="Add Todo"
         android:onClick="onAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

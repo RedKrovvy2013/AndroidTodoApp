@@ -1,13 +1,15 @@
 package com.todoapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
 
@@ -49,14 +51,30 @@ public class MainActivity extends AppCompatActivity {
         );
         lvItems.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
-                    @@Override
-                    public boolean onItemClick(AdapterView<?> adapter,
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter,
                                                    View item, int pos, long id) {
-
-                        return true;
+                        Intent i = new Intent(MainActivity.this, EditItemActivity.class);
+                        i.putExtra("itemText", items.get(pos));
+                        i.putExtra("itemPos", pos);
+                        startActivityForResult(i, REQUEST_CODE);
                     }
                 }
         );
+    }
+    private final int REQUEST_CODE = 20;
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
+            String itemText = data.getExtras().getString("itemText");
+            int itemPos = data.getExtras().getInt("itemPos", 0);
+
+            items.set(itemPos, itemText);
+            itemsAdapter.notifyDataSetChanged();
+            writeItems();
+        }
     }
 
     public void onAddItem(View v) {
@@ -65,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
+
+        //hide keyboard
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     private void readItems() {
