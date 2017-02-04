@@ -9,6 +9,7 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:layout_toLeftOf="@+id/ivTodoPriority"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="11dp"
         android:layout_marginEnd="11dp"
         android:id="@+id/ivTodoText"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/ivTodoPriority"
         android:textSize="18sp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/ivTodoText" />
 </RelativeLayout>

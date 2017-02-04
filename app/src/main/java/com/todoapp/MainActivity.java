@@ -1,6 +1,7 @@
 package com.todoapp;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,10 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EditItemDialogFragment.EditItemDialogListener {
 
     ArrayList<Todo> items;
     TodosAdapter itemsAdapter;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         readItems();
         itemsAdapter = new TodosAdapter(this, items);
         lvItems.setAdapter(itemsAdapter);
-//        setupListViewListeners();
+        setupListViewListeners();
         setupSpinner();
     }
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private void setupListViewListener() {
+    private void setupListViewListeners() {
         lvItems.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
@@ -53,35 +55,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-//        lvItems.setOnItemClickListener(
-//                new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapter,
-//                                                   View item, int pos, long id) {
-//                        Intent i = new Intent(MainActivity.this, EditItemActivity.class);
-//                        i.putExtra("itemText", items.get(pos));
-//                        i.putExtra("itemPos", pos);
-//                        startActivityForResult(i, REQUEST_CODE);
-//                    }
-//                }
-//        );
+        lvItems.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter,
+                                                   View item, int pos, long id) {
+                        TextView tvTodo = (TextView) item.findViewById(R.id.ivTodoText);
+                        String todoText = tvTodo.getText().toString();
+                        TextView tvPriority = (TextView) item.findViewById(R.id.ivTodoPriority);
+                        String priority = tvPriority.getText().toString();
+
+                        showEditDialog(todoText, priority, pos);
+                    }
+                }
+        );
 
     }
-
-//    private final int REQUEST_CODE = 20;
-//
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-//
-//            String itemText = data.getExtras().getString("itemText");
-//            int itemPos = data.getExtras().getInt("itemPos", 0);
-//
-//            items.set(itemPos, itemText);
-//            itemsAdapter.notifyDataSetChanged();
-//            writeItems();
-//        }
-//    }
 
     public void onAddItem(View v) {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
@@ -93,8 +82,24 @@ public class MainActivity extends AppCompatActivity {
         writeItems();
     }
 
+    private void showEditDialog(String todoText, String priority, int pos) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditItemDialogFragment editItemDialogFragment =
+                EditItemDialogFragment.newInstance(todoText, priority, pos);
+        editItemDialogFragment.show(fm, "fragment_edit_item");
+    }
+
+    @Override
+    public void onFinishEditDialog(String todoText, String priority, int pos) {
+        items.set(pos, new Todo(todoText, priority));
+        itemsAdapter.notifyDataSetChanged();
+    }
+
     private void readItems() {
         items = new ArrayList<Todo>();
+        items.add(new Todo("Go to mall.", "MEDIUM"));
+        items.add(new Todo("Buy new shoes.", "HIGH"));
+        items.add(new Todo("Clean garage.", "LOW"));
 //        File filesDir = getFilesDir();
 //        File todoFile = new File(filesDir, "todo.txt");
 //        try {

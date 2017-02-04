@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TodoApp</string>
+    <string name="high">HIGH</string>
+    <string name="medium">MEDIUM</string>
+    <string name="low">LOW</string>
 </resources>
