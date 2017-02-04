@@ -10,35 +10,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.todoapp.MainActivity">
 
-    <Button
-        android:text="Add Todo"
-        android:onClick="onAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/btnAddItem" />
+    <ListView
+        android:id="@+id/lvItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/etNewItem" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/etNewItem"
-        android:layout_toLeftOf="@+id/btnAddItem"
-        android:layout_toStartOf="@+id/btnAddItem"
-        android:hint="Enter todo" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_above="@+id/btnAddItem"
-        android:id="@+id/lvItems" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/etNewItem" />
+
+    <Spinner
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etNewItem"
+        android:layout_toRightOf="@+id/etNewItem"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:id="@+id/spinnerPriorities"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/btnAddItem" />
+
+    <Button
+        android:text="Add Item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnAddItem"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onAddItem"/>
 </RelativeLayout>
