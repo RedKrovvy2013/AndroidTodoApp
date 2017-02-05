@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements EditItemDialogFragment.EditItemDialogListener {
 
@@ -77,7 +78,10 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
         String itemText = etNewItem.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.spinnerPriorities);
         String priority = spinner.getSelectedItem().toString();
-        itemsAdapter.add(new Todo(itemText, priority));
+        
+        items.add(new Todo(itemText, priority));
+        Collections.sort(items);
+        itemsAdapter.notifyDataSetChanged();
         etNewItem.setText("");
         writeItems();
     }
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
     @Override
     public void onFinishEditDialog(String todoText, String priority, int pos) {
         items.set(pos, new Todo(todoText, priority));
+        Collections.sort(items);
         itemsAdapter.notifyDataSetChanged();
     }
 
@@ -100,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
         items.add(new Todo("Go to mall.", "MEDIUM"));
         items.add(new Todo("Buy new shoes.", "HIGH"));
         items.add(new Todo("Clean garage.", "LOW"));
+        items.add(new Todo("Buy clothes.", "HIGH"));
+        Collections.sort(items);
 //        File filesDir = getFilesDir();
 //        File todoFile = new File(filesDir, "todo.txt");
 //        try {
