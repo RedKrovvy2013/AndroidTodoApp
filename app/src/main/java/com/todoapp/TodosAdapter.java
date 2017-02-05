@@ -10,11 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class TodosAdapter extends ArrayAdapter<Todo> {
 
+    private Timer timer;
+
     public TodosAdapter(Context context, ArrayList<Todo> todos) {
         super(context, 0, todos);
+        this.timer = new Timer();
     }
 
     @Override
@@ -28,7 +32,6 @@ public class TodosAdapter extends ArrayAdapter<Todo> {
 
         TextView ivText = (TextView) convertView.findViewById(R.id.ivTodoText);
         TextView ivPriority = (TextView) convertView.findViewById(R.id.ivTodoPriority);
-
 
         ivText.setText(todo.text);
         ivPriority.setText(todo.priority);

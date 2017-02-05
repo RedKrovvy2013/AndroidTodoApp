@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
     ArrayList<Todo> items;
     TodosAdapter itemsAdapter;
     ListView lvItems;
+    int lastIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +79,16 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
         String itemText = etNewItem.getText().toString();
         Spinner spinner = (Spinner) findViewById(R.id.spinnerPriorities);
         String priority = spinner.getSelectedItem().toString();
-        
-        items.add(new Todo(itemText, priority));
+
+        Todo todo = new Todo(itemText, priority);
+        items.add(todo);
         Collections.sort(items);
+        lastIndex = items.indexOf(todo);
+
         itemsAdapter.notifyDataSetChanged();
+
+        lvItems.smoothScrollToPosition(lastIndex);
+
         etNewItem.setText("");
         writeItems();
     }
@@ -95,9 +102,15 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
 
     @Override
     public void onFinishEditDialog(String todoText, String priority, int pos) {
-        items.set(pos, new Todo(todoText, priority));
+
+        Todo todo = new Todo(todoText, priority);
+        items.set(pos, todo);
         Collections.sort(items);
+        lastIndex = items.indexOf(todo);
+
         itemsAdapter.notifyDataSetChanged();
+
+        lvItems.smoothScrollToPosition(lastIndex);
     }
 
     private void readItems() {
@@ -106,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
         items.add(new Todo("Buy new shoes.", "HIGH"));
         items.add(new Todo("Clean garage.", "LOW"));
         items.add(new Todo("Buy clothes.", "HIGH"));
+        items.add(new Todo("Bring food to party.", "MEDIUM"));
+        items.add(new Todo("Buy truck.", "LOW"));
         Collections.sort(items);
 //        File filesDir = getFilesDir();
 //        File todoFile = new File(filesDir, "todo.txt");
