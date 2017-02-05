@@ -1,4 +1,4 @@
-package com.todoapp;
+package com.todoapp.mainpage;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.todoapp.editdialog.EditItemDialogFragment;
+import com.todoapp.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

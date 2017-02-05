@@ -1,4 +1,4 @@
-package com.todoapp;
+package com.todoapp.editdialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
+
+import com.todoapp.R;
 
 public class EditItemDialogFragment extends DialogFragment {
 
     private EditText mEditText;
-    private Spinner spinner;
     private RadioGroup radioGroup;
     private int pos;
 

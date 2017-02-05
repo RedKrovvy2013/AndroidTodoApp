@@ -1,4 +1,4 @@
-package com.todoapp;
+package com.todoapp.mainpage;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.todoapp.R;
 
 import java.util.ArrayList;
 import java.util.Timer;
