@@ -9,7 +9,7 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:layout_toLeftOf="@+id/ivTodoPriority"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="11dp"
         android:layout_marginEnd="11dp"
         android:id="@+id/ivTodoText"

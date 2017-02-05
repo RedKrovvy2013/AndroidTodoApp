@@ -1,6 +1,8 @@
 package com.todoapp;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,17 @@ public class TodosAdapter extends ArrayAdapter<Todo> {
 
         ivText.setText(todo.text);
         ivPriority.setText(todo.priority);
+
+        Resources resources = getContext().getResources();
+
+        if(todo.priority.equals(resources.getString(R.string.high)))
+            ivPriority.setTextColor(ResourcesCompat.getColor(resources, R.color.colorHigh, null));
+
+        if(todo.priority.equals(resources.getString(R.string.medium)))
+            ivPriority.setTextColor(ResourcesCompat.getColor(resources, R.color.colorMedium, null));
+
+        if(todo.priority.equals(resources.getString(R.string.low)))
+            ivPriority.setTextColor(ResourcesCompat.getColor(resources, R.color.colorLow, null));
 
         return convertView;
     }

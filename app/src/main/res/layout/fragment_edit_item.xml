@@ -23,20 +23,26 @@
         <RadioButton android:id="@+id/rbHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/high" />
+            android:text="@string/high"
+            android:textSize="18dp" />
         <RadioButton android:id="@+id/rbMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/medium" />
+            android:text="@string/medium"
+            android:textSize="18dp" />
         <RadioButton android:id="@+id/rbLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/low" />
+            android:text="@string/low"
+            android:textSize="18dp"/>
     </RadioGroup>
+
+
 
     <Button
         android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:id="@+id/eiUpdateBtn" />
 </LinearLayout>

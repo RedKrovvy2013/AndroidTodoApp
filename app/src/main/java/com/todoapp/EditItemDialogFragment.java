@@ -47,7 +47,6 @@ public class EditItemDialogFragment extends DialogFragment {
         String priority = getArguments().getString("priority");
 
         mEditText = (EditText) view.findViewById(R.id.eiEditText);
-//        spinner = (Spinner) view.findViewById(R.id.spinnerEditPriority);
         radioGroup = (RadioGroup) view.findViewById(R.id.eiRadioGroup);
         pos = getArguments().getInt("pos");
 
