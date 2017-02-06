@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 
 import com.todoapp.R;
 import com.todoapp.editdialog.EditItemDialogFragment;
+import com.todoapp.models.Priority;
+import com.todoapp.models.Todo;
+import com.todoapp.models.TodosDBHelper;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,15 +25,18 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
     TodosAdapter itemsAdapter;
     ListView lvItems;
     int lastIndex;
+    TodosDBHelper todosDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lvItems = (ListView) findViewById(R.id.lvItems);
-        readItems();
+        todosDBHelper = TodosDBHelper.getInstance(this);
+        items = todosDBHelper.getTodos();
         itemsAdapter = new TodosAdapter(this, items);
+
+        lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(itemsAdapter);
         setupListViewListeners();
         setupSpinner();
@@ -44,8 +45,13 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
     private void setupSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.spinnerPriorities);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.priority_values, android.R.layout.simple_spinner_item);
+        //TODO: make an 'orderIndex' field to indicate ordering of priorities in database
+        //      - will be good for 4th/Nth priority addition, and robustness
+        TodosDBHelper todosDBHelper = TodosDBHelper.getInstance(this);
+        ArrayList<Priority> priorities = todosDBHelper.getPriorities();
+        //note: could have done SimpleCursorAdapter here, but it is deprecated
+
+        PrioritiesAdapter adapter = new PrioritiesAdapter(this, priorities);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -59,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
                                                    View item, int pos, long id) {
                         items.remove(pos);
                         itemsAdapter.notifyDataSetChanged();
-                        writeItems();
                         return true;
                     }
                 }
@@ -97,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
         lvItems.smoothScrollToPosition(lastIndex);
 
         etNewItem.setText("");
-        writeItems();
     }
 
     private void showEditDialog(String todoText, String priority, int pos) {
@@ -120,39 +124,28 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
         lvItems.smoothScrollToPosition(lastIndex);
     }
 
-    private void readItems() {
-
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-
-        ArrayList<String> strItems = null;
-        try {
-            strItems = new ArrayList<String>(FileUtils.readLines(todoFile));
-        } catch (IOException e) {
-            strItems = new ArrayList<String>();
-        }
-
-        items = new ArrayList<Todo>();
-        for(String line : strItems) {
-            String priority = line.substring(0, line.indexOf(' '));
-            String text = line.substring(line.indexOf(' ')+1);
-            items.add(new Todo(text, priority));
-        }
+    //app process can be killed while paused and memory reclaimed,
+    //so save data if pause occurs (this covers onStop(), which is after onPause())
+    @Override
+    protected void onPause() {
+        super.onPause();
+        todosDBHelper.saveTodos(items);
     }
 
-    private void writeItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
+    private ArrayList<Todo> createDummyItems() {
 
-        ArrayList<String> strItems = new ArrayList<String>();
-        for (Todo item : items) {
-            String str = item.priority + " " + item.text;
-            strItems.add(str);
-        }
-        try {
-            FileUtils.writeLines(todoFile, strItems);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        todosDBHelper = TodosDBHelper.getInstance(this);
+
+        todosDBHelper.addPriorityIfNotExist(new Priority("HIGH"));
+        todosDBHelper.addPriorityIfNotExist(new Priority("MEDIUM"));
+        todosDBHelper.addPriorityIfNotExist(new Priority("LOW"));
+        todosDBHelper.addTodo(new Todo("Clean kitchen.", "HIGH"));
+        todosDBHelper.addTodo(new Todo("Buy new clothes.", "MEDIUM"));
+        todosDBHelper.addTodo(new Todo("Go to mall.", "MEDIUM"));
+        todosDBHelper.addTodo(new Todo("Clean garage.", "LOW"));
+        todosDBHelper.addTodo(new Todo("Run errands.", "LOW"));
+        todosDBHelper.addTodo(new Todo("Send mail.", "LOW"));
+
+        return todosDBHelper.getTodos();
     }
 }

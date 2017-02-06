@@ -1,4 +1,4 @@
-package com.todoapp.mainpage;
+package com.todoapp.models;
 
 public class Todo implements Comparable<Todo> {
     public String text;

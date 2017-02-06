@@ -10,17 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.todoapp.R;
+import com.todoapp.models.Todo;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class TodosAdapter extends ArrayAdapter<Todo> {
 
-    private Timer timer;
-
     public TodosAdapter(Context context, ArrayList<Todo> todos) {
         super(context, 0, todos);
-        this.timer = new Timer();
     }
 
     @Override
