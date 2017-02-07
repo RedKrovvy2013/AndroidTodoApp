@@ -1,17 +1,16 @@
 package com.todoapp.mainpage;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.todoapp.R;
-import com.todoapp.editdialog.EditItemDialogFragment;
+import com.todoapp.editpage.EditItemActivity;
 import com.todoapp.models.Priority;
 import com.todoapp.models.Todo;
 import com.todoapp.models.TodosDBHelper;
@@ -19,7 +18,7 @@ import com.todoapp.models.TodosDBHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity implements EditItemDialogFragment.EditItemDialogListener {
+public class MainActivity extends AppCompatActivity {
 
     ArrayList<Todo> items;
     TodosAdapter itemsAdapter;
@@ -74,16 +73,32 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
                     @Override
                     public void onItemClick(AdapterView<?> adapter,
                                                    View item, int pos, long id) {
-                        TextView tvTodo = (TextView) item.findViewById(R.id.ivTodoText);
-                        String todoText = tvTodo.getText().toString();
-                        TextView tvPriority = (TextView) item.findViewById(R.id.ivTodoPriority);
-                        String priority = tvPriority.getText().toString();
+                        Todo todo = items.get(pos);
 
-                        showEditDialog(todoText, priority, pos);
+                        Intent i = new Intent(MainActivity.this, EditItemActivity.class);
+                        i.putExtra("todoText", todo.text);
+                        i.putExtra("todoPriority", todo.priority);
+                        i.putExtra("todoPos", pos);
+                        startActivityForResult(i, REQUEST_CODE);
                     }
                 }
         );
+    }
+    private final int REQUEST_CODE = 20;
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
+            String todoText = data.getExtras().getString("todoText");
+            String todoPriority = data.getExtras().getString("todoPriority");
+            int todoPos = data.getExtras().getInt("todoPos", 0);
+
+            Todo todo = new Todo(todoText, todoPriority);
+            items.set(todoPos, todo);
+
+            sortNotifyAndScroll(todo);
+        }
     }
 
     public void onAddItem(View v) {
@@ -94,33 +109,15 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
 
         Todo todo = new Todo(itemText, priority);
         items.add(todo);
-        Collections.sort(items);
-        lastIndex = items.indexOf(todo);
-
-        itemsAdapter.notifyDataSetChanged();
-
-        lvItems.smoothScrollToPosition(lastIndex);
+        sortNotifyAndScroll(todo);
 
         etNewItem.setText("");
     }
 
-    private void showEditDialog(String todoText, String priority, int pos) {
-        FragmentManager fm = getSupportFragmentManager();
-        EditItemDialogFragment editItemDialogFragment =
-                EditItemDialogFragment.newInstance(todoText, priority, pos);
-        editItemDialogFragment.show(fm, "fragment_edit_item");
-    }
-
-    @Override
-    public void onFinishEditDialog(String todoText, String priority, int pos) {
-
-        Todo todo = new Todo(todoText, priority);
-        items.set(pos, todo);
+    private void sortNotifyAndScroll(Todo todo) {
         Collections.sort(items);
         lastIndex = items.indexOf(todo);
-
         itemsAdapter.notifyDataSetChanged();
-
         lvItems.smoothScrollToPosition(lastIndex);
     }
 
