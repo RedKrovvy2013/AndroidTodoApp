@@ -176,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
-        todos.add(new Todo("Clean kitchen", "HIGH", Calendar.getInstance()));
+        todos.add(new Todo("Clean kitchen.", "HIGH", Calendar.getInstance()));
+        todos.add(new Todo("Do taxes, file 1099s.", "MEDIUM", Calendar.getInstance()));
+        todos.add(new Todo("Take out the garbage before Tuesday.", "LOW", Calendar.getInstance()));
 
         return todos;
 

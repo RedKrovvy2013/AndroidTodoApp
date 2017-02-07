@@ -50,16 +50,7 @@ public class TodosAdapter extends ArrayAdapter<Todo> {
             ivPriority.setTextColor(ResourcesCompat.getColor(resources, R.color.colorLow, null));
 
         Calendar dueDate = todo.dueDate;
-//        String month = String.valueOf(dueDate.get(dueDate.MONTH));
-//        String day = String.valueOf(dueDate.get(dueDate.DAY_OF_MONTH));
-//        String hour = String.valueOf(dueDate.get(dueDate.HOUR));
-//        String minute = String.valueOf(dueDate.get(dueDate.MINUTE));
-//
-//        String amPm = (dueDate.get(dueDate.AM_PM) == 0) ? "AM" : "PM";
-
-//        ivDueDate.setText(month + " " + day + ", " + hour + ":" + minute + " " + amPm);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
         dateFormat.setTimeZone(dueDate.getTimeZone());
         ivDueDate.setText(dateFormat.format(dueDate.getTime()));
 
