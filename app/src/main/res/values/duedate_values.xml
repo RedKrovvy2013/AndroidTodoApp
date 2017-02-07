@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="duedate_values">
+        <item>@string/dueDate_4Hours</item>
+        <item>@string/dueDate_8Hours</item>
+        <item>@string/dueDate_tmw</item>
+        <item>@string/dueDate_3Days</item>
+        <item>@string/dueDate_nextWeek</item>
+        <item>@string/dueDate_2Weeks</item>
+        <item>@string/dueDate_nextMonth</item>
+    </string-array>
+</resources>

@@ -3,4 +3,11 @@
     <string name="high">HIGH</string>
     <string name="medium">MEDIUM</string>
     <string name="low">LOW</string>
+    <string name="dueDate_4Hours">In 4 Hours</string>
+    <string name="dueDate_8Hours">In 8 Hours</string>
+    <string name="dueDate_tmw">Tomorrow</string>
+    <string name="dueDate_3Days">3 Days From Now</string>
+    <string name="dueDate_nextWeek">Next Week</string>
+    <string name="dueDate_2Weeks">In 2 Weeks</string>
+    <string name="dueDate_nextMonth">Next Month</string>
 </resources>

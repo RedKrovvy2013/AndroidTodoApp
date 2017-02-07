@@ -176,39 +176,39 @@ public class TodosDBHelper extends SQLiteOpenHelper {
         return priorityId;
     }
 
-    public ArrayList<Todo> getTodos() {
-        ArrayList<Todo> todos = new ArrayList<>();
-
-        String SELECT_QUERY =
-                String.format("SELECT * FROM %s JOIN %s ON %s.%s = %s.%s",
-                        TABLE_TODOS,
-                        TABLE_PRIORITIES,
-                        TABLE_TODOS, KEY_TODO_PRIORITY_ID_FK,
-                        TABLE_PRIORITIES, KEY_PRIORITY_ID);
-
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(SELECT_QUERY, null);
-        try {
-            if (cursor.moveToFirst()) {
-                do {
-                    Priority priority = new Priority(
-                                       cursor.getString(cursor.getColumnIndex(KEY_PRIORITY_VALUE)));
-
-                    Todo todo = new Todo(cursor.getString(cursor.getColumnIndex(KEY_TODO_TEXT)),
-                                         priority.value);
-                    todos.add(todo);
-                } while(cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            Log.d(TAG, "Error while trying to get posts from database");
-        } finally {
-            if (cursor != null && !cursor.isClosed()) {
-                cursor.close();
-            }
-        }
-
-        return todos;
-    }
+//    public ArrayList<Todo> getTodos() {
+//        ArrayList<Todo> todos = new ArrayList<>();
+//
+//        String SELECT_QUERY =
+//                String.format("SELECT * FROM %s JOIN %s ON %s.%s = %s.%s",
+//                        TABLE_TODOS,
+//                        TABLE_PRIORITIES,
+//                        TABLE_TODOS, KEY_TODO_PRIORITY_ID_FK,
+//                        TABLE_PRIORITIES, KEY_PRIORITY_ID);
+//
+//        SQLiteDatabase db = getReadableDatabase();
+//        Cursor cursor = db.rawQuery(SELECT_QUERY, null);
+//        try {
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    Priority priority = new Priority(
+//                                       cursor.getString(cursor.getColumnIndex(KEY_PRIORITY_VALUE)));
+//
+//                    Todo todo = new Todo(cursor.getString(cursor.getColumnIndex(KEY_TODO_TEXT)),
+//                                         priority.value);
+//                    todos.add(todo);
+//                } while(cursor.moveToNext());
+//            }
+//        } catch (Exception e) {
+//            Log.d(TAG, "Error while trying to get posts from database");
+//        } finally {
+//            if (cursor != null && !cursor.isClosed()) {
+//                cursor.close();
+//            }
+//        }
+//
+//        return todos;
+//    }
 
     public ArrayList<Priority> getPriorities() {
         ArrayList<Priority> priorities = new ArrayList<>();

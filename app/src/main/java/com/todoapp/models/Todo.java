@@ -1,13 +1,19 @@
 package com.todoapp.models;
 
+import java.util.Calendar;
+
 public class Todo implements Comparable<Todo> {
     public String text;
     public String priority;
+    public Calendar dueDate;
     private Integer priorityIndex;
 
-    public Todo(String text, String priority) {
+    public Todo(String text, String priority, Calendar dueDate) {
+
         this.text = text;
         this.priority = priority;
+        this.dueDate = dueDate;
+
         if(priority.equals("HIGH"))
             this.priorityIndex = 1;
         else if(priority.equals("MEDIUM"))
