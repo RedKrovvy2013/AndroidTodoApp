@@ -22,4 +22,16 @@
     <string name="oct">Oct</string>
     <string name="nov">Nov</string>
     <string name="dec">Dec</string>
+    <string name="period_0_1_hours">In less than an hour</string>
+    <string name="period_1_2_hours">In 1 to 2 hours</string>
+    <string name="period_2_4_hours">In 2 to 4 hours</string>
+    <string name="period_4_8_hours">In 4 to 8 hours</string>
+    <string name="period_8_24_hours">In 8 hours to the next day</string>
+    <string name="period_1_2_days">In 1 to 2 days</string>
+    <string name="period_2_4_days">In 2 to 4 days</string>
+    <string name="period_4_7_days">In 4 days to a week</string>
+    <string name="period_1_2_weeks">In a week to 2 weeks</string>
+    <string name="period_2_weeks_to_month">In 2 weeks to a month</string>
+    <string name="period_1_month_to_2_years">In over a month</string>
+    <string name="past_due">Past due</string>
 </resources>

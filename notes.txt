@@ -1,0 +1,7 @@
+
+
+
+Switched from API 16 to 23, to enable setHour on TimePicker,
+needed for transferring dueDate time to edit item activity.
+
+2/7

@@ -10,9 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.todoapp.R;
+import com.todoapp.models.TimeUntilDuePeriods;
 import com.todoapp.models.Todo;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -50,9 +50,29 @@ public class TodosAdapter extends ArrayAdapter<Todo> {
             ivPriority.setTextColor(ResourcesCompat.getColor(resources, R.color.colorLow, null));
 
         Calendar dueDate = todo.dueDate;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
-        dateFormat.setTimeZone(dueDate.getTimeZone());
-        ivDueDate.setText(dateFormat.format(dueDate.getTime()));
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
+//        dateFormat.setTimeZone(dueDate.getTimeZone());
+//        ivDueDate.setText(dateFormat.format(dueDate.getTime()));
+
+        Calendar now = Calendar.getInstance();
+        long nowMs = now.getTimeInMillis();
+        long dueDateMs = dueDate.getTimeInMillis();
+        long duration = dueDateMs - nowMs;
+
+        if(duration <= 0) {
+            ivDueDate.setText("(" + resources.getString(R.string.past_due) + ")");
+        } else {
+            TimeUntilDuePeriods timeUntilDuePeriods = TimeUntilDuePeriods.getInstance(getContext());
+            ArrayList<TimeUntilDuePeriods.TimeUntilDuePeriod> periods =
+                    timeUntilDuePeriods.periods;
+
+            for( TimeUntilDuePeriods.TimeUntilDuePeriod period : periods ) {
+
+                if(duration >= period.min && duration <= period.max) {
+                    ivDueDate.setText("(" + period.message + ")");
+                }
+            }
+        }
 
         return convertView;
     }
