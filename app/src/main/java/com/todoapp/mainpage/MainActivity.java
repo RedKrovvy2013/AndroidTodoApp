@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.todoapp.R;
+import com.todoapp.editpage.CalendarParcel;
 import com.todoapp.editpage.EditItemActivity;
 import com.todoapp.models.CommonDueDate;
 import com.todoapp.models.Priority;
@@ -115,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
                         i.putExtra("todoText", todo.text);
                         i.putExtra("todoPriority", todo.priority);
                         i.putExtra("todoPos", pos);
+
+                        CalendarParcel calendarParcel = new CalendarParcel(todo.dueDate);
+                        i.putExtra("todoDueDate", calendarParcel);
+
                         startActivityForResult(i, REQUEST_CODE);
                     }
                 }
@@ -124,17 +129,19 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-//        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-//
-//            String todoText = data.getExtras().getString("todoText");
-//            String todoPriority = data.getExtras().getString("todoPriority");
-//            int todoPos = data.getExtras().getInt("todoPos", 0);
-//
-//            Todo todo = new Todo(todoText, todoPriority);
-//            items.set(todoPos, todo);
-//
-//            sortNotifyAndScroll(todo);
-//        }
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
+            Bundle extras = data.getExtras();
+            String todoText = extras.getString("todoText");
+            String todoPriority = extras.getString("todoPriority");
+            int todoPos = extras.getInt("todoPos", 0);
+            CalendarParcel calendarParcel = extras.getParcelable("todoDueDate");
+
+            Todo todo = new Todo(todoText, todoPriority, calendarParcel.cal);
+            items.set(todoPos, todo);
+
+            sortNotifyAndScroll(todo);
+        }
     }
 
     public void onAddItem(View v) {
@@ -169,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        todosDBHelper.saveTodos(items);
+//        todosDBHelper.saveTodos(items);
     }
 
     private ArrayList<Todo> createDummyItems() {

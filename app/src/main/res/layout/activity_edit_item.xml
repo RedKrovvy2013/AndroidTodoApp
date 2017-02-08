@@ -55,4 +55,35 @@
             android:text="@string/low"
             android:textSize="18dp"/>
     </RadioGroup>
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eiDatePicker"
+        android:layout_above="@+id/eiSaveBtn"
+        android:layout_centerHorizontal="true" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eiTimePicker"
+        android:timePickerMode="spinner"
+        android:layout_above="@+id/eiDatePicker"
+        android:layout_alignStart="@+id/eiRadioGroup" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eiMonthPicker"
+        android:layout_alignBaseline="@+id/eiDatePicker"
+        android:layout_alignBottom="@+id/eiDatePicker"
+        android:layout_toStartOf="@+id/eiSaveBtn" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eiYearPicker"
+        android:layout_alignBaseline="@+id/eiDatePicker"
+        android:layout_alignBottom="@+id/eiDatePicker"
+        android:layout_toEndOf="@+id/eiSaveBtn" />
 </RelativeLayout>
