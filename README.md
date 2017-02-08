@@ -1,4 +1,12 @@
-# Pre-work - *Todo App*
+# *Todo App*
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='http://i.imgur.com/6yYoH0P.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 **Todo App** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
 
@@ -26,14 +34,6 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 * [X] Todo list sorts first on priority, then text of todo, after all add/edit actions.
-
-## Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
-
-<img src='http://i.imgur.com/6yYoH0P.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## License
 
