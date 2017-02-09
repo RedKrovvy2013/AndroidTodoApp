@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!--Hack for relative layout not working in dialog fragment:-->
+    <!--http://stackoverflow.com/questions/20329794/relativelayout-alignment-rules-dont-work-in-dialogfragment-->
+<RelativeLayout
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edDatePicker"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/edSaveBtn" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edMonthPicker"
+        android:layout_alignBaseline="@+id/edDatePicker"
+        android:layout_alignBottom="@+id/edDatePicker"
+        android:layout_toLeftOf="@+id/edDatePicker"
+        android:layout_marginRight="10dp" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edYearPicker"
+        android:layout_alignBaseline="@+id/edDatePicker"
+        android:layout_alignBottom="@+id/edDatePicker"
+        android:layout_toRightOf="@+id/edDatePicker"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:text="@string/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edSaveBtn" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edTimePicker"
+        android:timePickerMode="spinner"
+        android:layout_marginTop="46dp"
+        android:layout_above="@+id/edDatePicker"
+        android:layout_centerHorizontal="true" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <TableRow>
+            <TextView android:id="@+id/edDateTextLabel"
+                android:text="@string/futureDateLabel"
+                android:textAlignment="textEnd" />
+            <TextView
+                android:text="TextView"
+                android:id="@+id/edDateText"
+                android:layout_marginLeft="10dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView android:id="@+id/edTimeUntilDateLabel"
+                android:text="@string/timeUntilDateLabel"
+                android:textAlignment="textEnd" />
+            <TextView
+                android:text="TextView"
+                android:id="@+id/edTimeUntilDate"
+                android:layout_marginLeft="10dp" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
+    </LinearLayout>

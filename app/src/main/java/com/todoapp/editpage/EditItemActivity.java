@@ -3,8 +3,10 @@ package com.todoapp.editpage;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -15,7 +17,8 @@ import com.todoapp.R;
 
 import java.util.Calendar;
 
-public class EditItemActivity extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity
+        implements EditDateDialogFragment.EditDateDialogListener {
 
     private EditText et;
     private RadioGroup radioGroup;
@@ -76,9 +79,11 @@ public class EditItemActivity extends AppCompatActivity {
 
         yearPicker = (NumberPicker) findViewById(R.id.eiYearPicker);
         yearPicker.setMinValue(dueDate.get(dueDate.YEAR));
-        Calendar nextYear = dueDate;
+        Calendar nextYear = (Calendar)(dueDate.clone());
         nextYear.add(Calendar.YEAR, 1);
         yearPicker.setMaxValue(nextYear.get(nextYear.YEAR));
+
+        hideSoftKeyboard();
     }
 
     public void onSaveEdit(View v) {
@@ -106,5 +111,23 @@ public class EditItemActivity extends AppCompatActivity {
 
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    public void onEditDate(View v) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditDateDialogFragment editDateDialogFragment =
+                EditDateDialogFragment.newInstance(dueDate);
+        editDateDialogFragment.show(fm, "fragment_edit_date");
+    }
+
+    public void onFinishEditDialog() {
+
+    }
+
+    public void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }

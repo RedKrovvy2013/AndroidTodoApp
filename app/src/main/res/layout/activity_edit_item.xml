@@ -11,8 +11,8 @@
     tools:context="com.todoapp.editpage.EditItemActivity">
 
     <Button
-        android:text="Save"
-        android:onClick="onSaveEdit"
+        android:text="@string/save"
+        android:onClick="onEditDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eiSaveBtn"
