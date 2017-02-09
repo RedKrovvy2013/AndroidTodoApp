@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.content.ContentValues.TAG;
 
@@ -24,6 +25,7 @@ public class TodosDBHelper extends SQLiteOpenHelper {
     private static final String KEY_TODO_ID = "id";
     private static final String KEY_TODO_PRIORITY_ID_FK = "priorityId";
     private static final String KEY_TODO_TEXT = "text";
+    private static final String KEY_TODO_DUEDATE = "dueDate";
 
     private static final String KEY_PRIORITY_ID = "id";
     private static final String KEY_PRIORITY_VALUE = "value";
@@ -57,7 +59,8 @@ public class TodosDBHelper extends SQLiteOpenHelper {
                 "(" +
                 KEY_TODO_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_TODO_PRIORITY_ID_FK + " INTEGER REFERENCES " + TABLE_PRIORITIES + "," + // Define a foreign key
-                KEY_TODO_TEXT + " TEXT" +
+                KEY_TODO_TEXT + " TEXT," +
+                KEY_TODO_DUEDATE + " INTEGER" +
                 ")";
 
         String CREATE_PRIORITIES_TABLE = "CREATE TABLE " + TABLE_PRIORITIES +
@@ -68,6 +71,7 @@ public class TodosDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TODOS_TABLE);
         db.execSQL(CREATE_PRIORITIES_TABLE);
+
     }
 
     // Called when the database needs to be upgraded.
@@ -96,6 +100,7 @@ public class TodosDBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_TODO_PRIORITY_ID_FK, priorityId);
             values.put(KEY_TODO_TEXT, todo.text);
+            values.put(KEY_TODO_DUEDATE, todo.dueDate.getTimeInMillis());
 
             todoId = db.insertOrThrow(TABLE_TODOS, null, values);
             db.setTransactionSuccessful();
@@ -176,39 +181,44 @@ public class TodosDBHelper extends SQLiteOpenHelper {
         return priorityId;
     }
 
-//    public ArrayList<Todo> getTodos() {
-//        ArrayList<Todo> todos = new ArrayList<>();
-//
-//        String SELECT_QUERY =
-//                String.format("SELECT * FROM %s JOIN %s ON %s.%s = %s.%s",
-//                        TABLE_TODOS,
-//                        TABLE_PRIORITIES,
-//                        TABLE_TODOS, KEY_TODO_PRIORITY_ID_FK,
-//                        TABLE_PRIORITIES, KEY_PRIORITY_ID);
-//
-//        SQLiteDatabase db = getReadableDatabase();
-//        Cursor cursor = db.rawQuery(SELECT_QUERY, null);
-//        try {
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    Priority priority = new Priority(
-//                                       cursor.getString(cursor.getColumnIndex(KEY_PRIORITY_VALUE)));
-//
-//                    Todo todo = new Todo(cursor.getString(cursor.getColumnIndex(KEY_TODO_TEXT)),
-//                                         priority.value);
-//                    todos.add(todo);
-//                } while(cursor.moveToNext());
-//            }
-//        } catch (Exception e) {
-//            Log.d(TAG, "Error while trying to get posts from database");
-//        } finally {
-//            if (cursor != null && !cursor.isClosed()) {
-//                cursor.close();
-//            }
-//        }
-//
-//        return todos;
-//    }
+    public ArrayList<Todo> getTodos() {
+        ArrayList<Todo> todos = new ArrayList<>();
+
+        String SELECT_QUERY =
+                String.format("SELECT * FROM %s JOIN %s ON %s.%s = %s.%s",
+                        TABLE_TODOS,
+                        TABLE_PRIORITIES,
+                        TABLE_TODOS, KEY_TODO_PRIORITY_ID_FK,
+                        TABLE_PRIORITIES, KEY_PRIORITY_ID);
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(SELECT_QUERY, null);
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    Priority priority = new Priority(
+                                       cursor.getString(cursor.getColumnIndex(KEY_PRIORITY_VALUE)));
+
+                    long dueDateInMs = cursor.getLong(cursor.getColumnIndex(KEY_TODO_DUEDATE));
+                    Calendar dueDate = Calendar.getInstance();
+                    dueDate.setTimeInMillis(dueDateInMs);
+
+                    Todo todo = new Todo(cursor.getString(cursor.getColumnIndex(KEY_TODO_TEXT)),
+                                         priority.value,
+                                         dueDate);
+                    todos.add(todo);
+                } while(cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to get posts from database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return todos;
+    }
 
     public ArrayList<Priority> getPriorities() {
         ArrayList<Priority> priorities = new ArrayList<>();

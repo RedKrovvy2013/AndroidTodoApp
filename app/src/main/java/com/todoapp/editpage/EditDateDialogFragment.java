@@ -55,13 +55,12 @@ public class EditDateDialogFragment extends DialogFragment {
         dateText = (TextView) view.findViewById(R.id.edDateText);
         dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
         dateFormat.setTimeZone(cal.getTimeZone());
-        dateText.setText(dateFormat.format(cal.getTime()));
 
         now = Calendar.getInstance();
         timeUntilDate = (TextView) view.findViewById(R.id.edTimeUntilDate);
 
         //dependent on above members being init'd
-        updateDates();
+        updateDateRepresentations();
 
         TimePicker timePicker = (TimePicker) view.findViewById(R.id.edTimePicker);
         timePicker.setHour(cal.get(cal.HOUR_OF_DAY));
@@ -72,7 +71,7 @@ public class EditDateDialogFragment extends DialogFragment {
                 public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                     cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     cal.set(Calendar.MINUTE, minute);
-                    updateDates();
+                    updateDateRepresentations();
                 }
             }
         );
@@ -90,7 +89,7 @@ public class EditDateDialogFragment extends DialogFragment {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 cal.set(Calendar.MONTH, newVal);
-                updateDates();
+                updateDateRepresentations();
             }
         });
 
@@ -104,7 +103,7 @@ public class EditDateDialogFragment extends DialogFragment {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 cal.set(Calendar.DATE, newVal);
-                updateDates();
+                updateDateRepresentations();
             }
         });
 
@@ -119,7 +118,7 @@ public class EditDateDialogFragment extends DialogFragment {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 cal.set(Calendar.YEAR, newVal);
-                updateDates();
+                updateDateRepresentations();
             }
         });
 
@@ -129,17 +128,15 @@ public class EditDateDialogFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         EditDateDialogListener listener = (EditDateDialogListener) getActivity();
-                        listener.onFinishEditDialog();
-
+                        listener.onFinishEditDialog(cal);
                         dismiss();
                     }
                 }
         );
     }
 
-    public void updateDates() {
+    public void updateDateRepresentations() {
         updateTimeUntilDate();
         dateText.setText(dateFormat.format(cal.getTime()));
     }
@@ -171,6 +168,6 @@ public class EditDateDialogFragment extends DialogFragment {
     }
 
     public interface EditDateDialogListener {
-        void onFinishEditDialog();
+        void onFinishEditDialog(Calendar cal);
     }
 }

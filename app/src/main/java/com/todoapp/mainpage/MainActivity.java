@@ -37,10 +37,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        todosDBHelper = TodosDBHelper.getInstance(this);
-//        items = todosDBHelper.getTodos();
+        todosDBHelper = TodosDBHelper.getInstance(this);
+        items = todosDBHelper.getTodos();
 
-        items = createDummyItems();
+        //dependent upon todosDBHelper
+//        initPriorities();
+//        items = createDummyItems();
+
         itemsAdapter = new TodosAdapter(this, items);
 
         lvItems = (ListView) findViewById(R.id.lvItems);
@@ -176,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-//        todosDBHelper.saveTodos(items);
+        todosDBHelper.saveTodos(items);
     }
 
     private ArrayList<Todo> createDummyItems() {
@@ -188,19 +191,11 @@ public class MainActivity extends AppCompatActivity {
         todos.add(new Todo("Take out the garbage before Tuesday.", "LOW", Calendar.getInstance()));
 
         return todos;
+    }
 
-//        todosDBHelper = TodosDBHelper.getInstance(this);
-//
-//        todosDBHelper.addPriorityIfNotExist(new Priority("HIGH"));
-//        todosDBHelper.addPriorityIfNotExist(new Priority("MEDIUM"));
-//        todosDBHelper.addPriorityIfNotExist(new Priority("LOW"));
-//        todosDBHelper.addTodo(new Todo("Clean kitchen.", "HIGH"));
-//        todosDBHelper.addTodo(new Todo("Buy new clothes.", "MEDIUM"));
-//        todosDBHelper.addTodo(new Todo("Go to mall.", "MEDIUM"));
-//        todosDBHelper.addTodo(new Todo("Clean garage.", "LOW"));
-//        todosDBHelper.addTodo(new Todo("Run errands.", "LOW"));
-//        todosDBHelper.addTodo(new Todo("Send mail.", "LOW"));
-//
-//        return todosDBHelper.getTodos();
+    private void initPriorities() {
+        todosDBHelper.addPriorityIfNotExist(new Priority("HIGH"));
+        todosDBHelper.addPriorityIfNotExist(new Priority("MEDIUM"));
+        todosDBHelper.addPriorityIfNotExist(new Priority("LOW"));
     }
 }

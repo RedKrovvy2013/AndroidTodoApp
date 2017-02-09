@@ -10,35 +10,50 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.todoapp.editpage.EditItemActivity">
 
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/eiDatesTable">
+
+        <TableRow>
+            <TextView android:id="@+id/eiDateTextLabel"
+                android:text="@string/futureDateLabel"
+                android:textAlignment="textEnd" />
+            <TextView
+                android:text="TextView"
+                android:id="@+id/eiDateText"
+                android:layout_marginLeft="10dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView android:id="@+id/eiTimeUntilDateLabel"
+                android:text="@string/timeUntilDateLabel"
+                android:textAlignment="textEnd" />
+            <TextView
+                android:text="TextView"
+                android:id="@+id/eiTimeUntilDate"
+                android:layout_marginLeft="10dp" />
+        </TableRow>
+    </TableLayout>
+
     <Button
         android:text="@string/save"
-        android:onClick="onEditDate"
+        android:onClick="onSaveEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eiSaveBtn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/eiEditText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/eiRadioGroup"
-        android:layout_below="@+id/eiEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp">
+        android:layout_above="@+id/eiSaveBtn"
+        android:layout_centerHorizontal="true">
         <RadioButton android:id="@+id/rbHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,34 +71,22 @@
             android:textSize="18dp"/>
     </RadioGroup>
 
-    <NumberPicker
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/eiDatePicker"
-        android:layout_above="@+id/eiSaveBtn"
-        android:layout_centerHorizontal="true" />
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/eiEditText"
+        android:layout_above="@+id/eiRadioGroup"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
-    <TimePicker
+    <Button
+        android:text="@string/edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/eiTimePicker"
-        android:timePickerMode="spinner"
-        android:layout_above="@+id/eiDatePicker"
-        android:layout_alignStart="@+id/eiRadioGroup" />
+        android:id="@+id/eiEditDateBtn"
+        android:layout_below="@+id/eiDatesTable"
+        android:onClick="onEditDate"/>
 
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eiMonthPicker"
-        android:layout_alignBaseline="@+id/eiDatePicker"
-        android:layout_alignBottom="@+id/eiDatePicker"
-        android:layout_toStartOf="@+id/eiSaveBtn" />
-
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eiYearPicker"
-        android:layout_alignBaseline="@+id/eiDatePicker"
-        android:layout_alignBottom="@+id/eiDatePicker"
-        android:layout_toEndOf="@+id/eiSaveBtn" />
 </RelativeLayout>

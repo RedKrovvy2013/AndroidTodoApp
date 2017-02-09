@@ -11,11 +11,15 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.todoapp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class EditItemActivity extends AppCompatActivity
         implements EditDateDialogFragment.EditDateDialogListener {
@@ -26,19 +30,25 @@ public class EditItemActivity extends AppCompatActivity
     private NumberPicker monthPicker;
     private NumberPicker datePicker;
     private NumberPicker yearPicker;
+
+    String todoText;
+    String todoPriority;
     private int todoPos;
 
     private Calendar dueDate;
+
+    public Calendar now;
+    public TextView timeUntilDate;
+    public TextView dateText;
+    public SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-        Resources res = getResources();
-
-        String todoText = getIntent().getStringExtra("todoText");
-        String todoPriority = getIntent().getStringExtra("todoPriority");
+        todoText = getIntent().getStringExtra("todoText");
+        todoPriority = getIntent().getStringExtra("todoPriority");
         todoPos = getIntent().getIntExtra("todoPos", 0);
 
         CalendarParcel dueDateParcel = (CalendarParcel) getIntent()
@@ -46,10 +56,27 @@ public class EditItemActivity extends AppCompatActivity
         dueDate = dueDateParcel.cal;
 
         et = (EditText) findViewById(R.id.eiEditText);
-        et.setText(todoText);
-        et.setSelection(et.getText().length());
 
         radioGroup = (RadioGroup) findViewById(R.id.eiRadioGroup);
+
+        dateText = (TextView) findViewById(R.id.eiDateText);
+        dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
+        dateFormat.setTimeZone(dueDate.getTimeZone());
+
+        now = Calendar.getInstance();
+        timeUntilDate = (TextView) findViewById(R.id.eiTimeUntilDate);
+
+        //dependent upon above inits
+        update();
+
+        hideSoftKeyboard();
+    }
+
+    private void update() {
+        Resources res = getResources();
+
+        et.setText(todoText);
+        et.setSelection(et.getText().length());
 
         if(todoPriority.equals(res.getString(R.string.high)))
             radioGroup.check(R.id.rbHigh);
@@ -60,30 +87,7 @@ public class EditItemActivity extends AppCompatActivity
         else
             radioGroup.check(R.id.rbHigh);
 
-        final String[] months = res.getStringArray(R.array.month_values);
-
-        monthPicker = (NumberPicker) findViewById(R.id.eiMonthPicker);
-        monthPicker.setMinValue(0);
-        monthPicker.setMaxValue(11);
-        monthPicker.setDisplayedValues(months);
-        monthPicker.setValue(dueDate.get(dueDate.MONTH));
-
-        timePicker = (TimePicker) findViewById(R.id.eiTimePicker);
-        timePicker.setHour(dueDate.get(dueDate.HOUR_OF_DAY));
-        timePicker.setMinute(dueDate.get(dueDate.MINUTE));
-
-        datePicker = (NumberPicker) findViewById(R.id.eiDatePicker);
-        datePicker.setMinValue(1);
-        datePicker.setMaxValue(31);  //TODO: max date by month
-        datePicker.setValue(dueDate.get(dueDate.DATE));
-
-        yearPicker = (NumberPicker) findViewById(R.id.eiYearPicker);
-        yearPicker.setMinValue(dueDate.get(dueDate.YEAR));
-        Calendar nextYear = (Calendar)(dueDate.clone());
-        nextYear.add(Calendar.YEAR, 1);
-        yearPicker.setMaxValue(nextYear.get(nextYear.YEAR));
-
-        hideSoftKeyboard();
+        updateDateRepresentations();
     }
 
     public void onSaveEdit(View v) {
@@ -92,14 +96,6 @@ public class EditItemActivity extends AppCompatActivity
         View radioButton = radioGroup.findViewById(id);
         int radioId = radioGroup.indexOfChild(radioButton);
         RadioButton radioBtn = (RadioButton) radioGroup.getChildAt(radioId);
-
-        int minute = timePicker.getMinute();
-        int hour = timePicker.getHour();
-        int date = datePicker.getValue();
-        int month = monthPicker.getValue();
-        int year = yearPicker.getValue();
-
-        dueDate.set(year, month, date, hour, minute);
 
         Intent data = new Intent();
         data.putExtra("todoText", et.getText().toString());
@@ -120,8 +116,40 @@ public class EditItemActivity extends AppCompatActivity
         editDateDialogFragment.show(fm, "fragment_edit_date");
     }
 
-    public void onFinishEditDialog() {
+    public void onFinishEditDialog(Calendar dueDate) {
+        this.dueDate = dueDate;
+        update();
+    }
 
+    public void updateDateRepresentations() {
+        updateTimeUntilDate();
+        dateText.setText(dateFormat.format(dueDate.getTime()));
+    }
+
+    private void updateTimeUntilDate() {
+        Date nowDate = now.getTime();
+        Date calDate = dueDate.getTime();
+
+        long duration = calDate.getTime() - nowDate.getTime();
+        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
+        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+        long minutesRemainder = diffInMinutes % 60;
+        long hoursRemainder = diffInHours % 24;
+
+        String dayStr = (diffInDays == 1L) ? " day, " : " days, ";
+        String hourStr = (hoursRemainder == 1L) ? " hour, " : " hours, ";
+        String minuteStr = (minutesRemainder == 1L) ? " minute" : " minutes";
+
+        String timeUntilDateStr = new String(
+                String.valueOf(diffInDays) + dayStr +
+                        String.valueOf(hoursRemainder) + hourStr +
+                        String.valueOf(minutesRemainder) + minuteStr
+        );
+
+        timeUntilDate.setText(
+                (duration > 0) ? timeUntilDateStr : "n/a"
+        );
     }
 
     public void hideSoftKeyboard() {
