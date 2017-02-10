@@ -8,23 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.todoapp.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class EditDateDialogFragment extends DialogFragment {
 
-    public Calendar cal;
-    public Calendar now;
-    public TextView timeUntilDate;
-    public TextView dateText;
-    public SimpleDateFormat dateFormat;
+    private Calendar cal;
+
+    private DateAndTimeUntilDateView datudView;
 
     public EditDateDialogFragment() {}
 
@@ -52,15 +46,9 @@ public class EditDateDialogFragment extends DialogFragment {
         CalendarParcel dateParcel = getArguments().getParcelable("date");
         cal = dateParcel.cal;
 
-        dateText = (TextView) view.findViewById(R.id.edDateText);
-        dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
-        dateFormat.setTimeZone(cal.getTimeZone());
+        datudView = (DateAndTimeUntilDateView) view.findViewById(R.id.eiDatesView);
+        datudView.setDate(cal);
 
-        now = Calendar.getInstance();
-        timeUntilDate = (TextView) view.findViewById(R.id.edTimeUntilDate);
-
-        //dependent on above members being init'd
-        updateDateRepresentations();
 
         TimePicker timePicker = (TimePicker) view.findViewById(R.id.edTimePicker);
         timePicker.setHour(cal.get(cal.HOUR_OF_DAY));
@@ -71,7 +59,7 @@ public class EditDateDialogFragment extends DialogFragment {
                 public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                     cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     cal.set(Calendar.MINUTE, minute);
-                    updateDateRepresentations();
+                    datudView.setDate(cal);
                 }
             }
         );
@@ -89,7 +77,7 @@ public class EditDateDialogFragment extends DialogFragment {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 cal.set(Calendar.MONTH, newVal);
-                updateDateRepresentations();
+                datudView.setDate(cal);
             }
         });
 
@@ -103,7 +91,7 @@ public class EditDateDialogFragment extends DialogFragment {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 cal.set(Calendar.DATE, newVal);
-                updateDateRepresentations();
+                datudView.setDate(cal);
             }
         });
 
@@ -118,7 +106,7 @@ public class EditDateDialogFragment extends DialogFragment {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 cal.set(Calendar.YEAR, newVal);
-                updateDateRepresentations();
+                datudView.setDate(cal);
             }
         });
 
@@ -133,37 +121,6 @@ public class EditDateDialogFragment extends DialogFragment {
                         dismiss();
                     }
                 }
-        );
-    }
-
-    public void updateDateRepresentations() {
-        updateTimeUntilDate();
-        dateText.setText(dateFormat.format(cal.getTime()));
-    }
-
-    private void updateTimeUntilDate() {
-        Date nowDate = now.getTime();
-        Date calDate = cal.getTime();
-
-        long duration = calDate.getTime() - nowDate.getTime();
-        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
-        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
-        long minutesRemainder = diffInMinutes % 60;
-        long hoursRemainder = diffInHours % 24;
-
-        String dayStr = (diffInDays == 1L) ? " day, " : " days, ";
-        String hourStr = (hoursRemainder == 1L) ? " hour, " : " hours, ";
-        String minuteStr = (minutesRemainder == 1L) ? " minute" : " minutes";
-
-        String timeUntilDateStr = new String(
-                String.valueOf(diffInDays) + dayStr +
-                String.valueOf(hoursRemainder) + hourStr +
-                String.valueOf(minutesRemainder) + minuteStr
-        );
-
-        timeUntilDate.setText(
-                (duration > 0) ? timeUntilDateStr : "n/a"
         );
     }
 

@@ -1,4 +1,9 @@
 
+Has a Notepad tutorial for making EditText components have
+notepad-lined styling effect.
+https://developer.android.com/samples/index.html
+
+2/9
 
 
 Switched from API 16 to 23, to enable setHour on TimePicker,

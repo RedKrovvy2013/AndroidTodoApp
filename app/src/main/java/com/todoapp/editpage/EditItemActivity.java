@@ -8,39 +8,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.todoapp.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class EditItemActivity extends AppCompatActivity
         implements EditDateDialogFragment.EditDateDialogListener {
 
     private EditText et;
     private RadioGroup radioGroup;
-    private TimePicker timePicker;
-    private NumberPicker monthPicker;
-    private NumberPicker datePicker;
-    private NumberPicker yearPicker;
 
-    String todoText;
-    String todoPriority;
+    private String todoText;
+    private String todoPriority;
     private int todoPos;
 
     private Calendar dueDate;
-
-    public Calendar now;
-    public TextView timeUntilDate;
-    public TextView dateText;
-    public SimpleDateFormat dateFormat;
+    private DateAndTimeUntilDateView datudView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +45,12 @@ public class EditItemActivity extends AppCompatActivity
 
         radioGroup = (RadioGroup) findViewById(R.id.eiRadioGroup);
 
-        dateText = (TextView) findViewById(R.id.eiDateText);
-        dateFormat = new SimpleDateFormat("EEE, MMM d, hh:mm aaa");
-        dateFormat.setTimeZone(dueDate.getTimeZone());
-
-        now = Calendar.getInstance();
-        timeUntilDate = (TextView) findViewById(R.id.eiTimeUntilDate);
+        datudView = (DateAndTimeUntilDateView) findViewById(R.id.eiDatesView);
 
         //dependent upon above inits
         update();
 
-        hideSoftKeyboard();
+//        hideSoftKeyboard();
     }
 
     private void update() {
@@ -87,7 +68,8 @@ public class EditItemActivity extends AppCompatActivity
         else
             radioGroup.check(R.id.rbHigh);
 
-        updateDateRepresentations();
+//        updateDateRepresentations();
+        datudView.setDate(dueDate);
     }
 
     public void onSaveEdit(View v) {
@@ -119,37 +101,6 @@ public class EditItemActivity extends AppCompatActivity
     public void onFinishEditDialog(Calendar dueDate) {
         this.dueDate = dueDate;
         update();
-    }
-
-    public void updateDateRepresentations() {
-        updateTimeUntilDate();
-        dateText.setText(dateFormat.format(dueDate.getTime()));
-    }
-
-    private void updateTimeUntilDate() {
-        Date nowDate = now.getTime();
-        Date calDate = dueDate.getTime();
-
-        long duration = calDate.getTime() - nowDate.getTime();
-        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
-        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
-        long minutesRemainder = diffInMinutes % 60;
-        long hoursRemainder = diffInHours % 24;
-
-        String dayStr = (diffInDays == 1L) ? " day, " : " days, ";
-        String hourStr = (hoursRemainder == 1L) ? " hour, " : " hours, ";
-        String minuteStr = (minutesRemainder == 1L) ? " minute" : " minutes";
-
-        String timeUntilDateStr = new String(
-                String.valueOf(diffInDays) + dayStr +
-                        String.valueOf(hoursRemainder) + hourStr +
-                        String.valueOf(minutesRemainder) + minuteStr
-        );
-
-        timeUntilDate.setText(
-                (duration > 0) ? timeUntilDateStr : "n/a"
-        );
     }
 
     public void hideSoftKeyboard() {

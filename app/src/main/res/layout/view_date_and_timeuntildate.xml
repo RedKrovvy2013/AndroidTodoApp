@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/datesTable">
+
+    <TableRow>
+        <TextView android:id="@+id/dateLabel"
+            android:text="@string/futureDateLabel"
+            android:textAlignment="textEnd" />
+        <TextView
+            android:text="TextView"
+            android:id="@+id/date"
+            android:layout_marginLeft="10dp"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView android:id="@+id/timeUntilDateLabel"
+            android:text="@string/timeUntilDateLabel"
+            android:textAlignment="textEnd" />
+        <TextView
+            android:text="TextView"
+            android:id="@+id/timeUntilDate"
+            android:layout_marginLeft="10dp" />
+    </TableRow>
+</TableLayout>

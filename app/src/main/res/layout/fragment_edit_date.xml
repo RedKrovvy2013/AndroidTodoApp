@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <!--Hack for relative layout not working in dialog fragment:-->
@@ -50,32 +51,13 @@
         android:layout_above="@+id/edDatePicker"
         android:layout_centerHorizontal="true" />
 
-    <TableLayout
+    <com.todoapp.editpage.DateAndTimeUntilDateView
+        android:id="@+id/eiDatesView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-
-        <TableRow>
-            <TextView android:id="@+id/edDateTextLabel"
-                android:text="@string/futureDateLabel"
-                android:textAlignment="textEnd" />
-            <TextView
-                android:text="TextView"
-                android:id="@+id/edDateText"
-                android:layout_marginLeft="10dp"/>
-        </TableRow>
-
-        <TableRow>
-            <TextView android:id="@+id/edTimeUntilDateLabel"
-                android:text="@string/timeUntilDateLabel"
-                android:textAlignment="textEnd" />
-            <TextView
-                android:text="TextView"
-                android:id="@+id/edTimeUntilDate"
-                android:layout_marginLeft="10dp" />
-        </TableRow>
-    </TableLayout>
+        android:layout_centerHorizontal="true"
+        custom:dateLabel="@string/dueDateLabel"/>
 
 </RelativeLayout>
     </LinearLayout>

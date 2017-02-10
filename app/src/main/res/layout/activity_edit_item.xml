@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_edit_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,33 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.todoapp.editpage.EditItemActivity">
 
-    <TableLayout
+    <com.todoapp.editpage.DateAndTimeUntilDateView
+        android:id="@+id/eiDatesView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/eiDatesTable">
-
-        <TableRow>
-            <TextView android:id="@+id/eiDateTextLabel"
-                android:text="@string/futureDateLabel"
-                android:textAlignment="textEnd" />
-            <TextView
-                android:text="TextView"
-                android:id="@+id/eiDateText"
-                android:layout_marginLeft="10dp"/>
-        </TableRow>
-
-        <TableRow>
-            <TextView android:id="@+id/eiTimeUntilDateLabel"
-                android:text="@string/timeUntilDateLabel"
-                android:textAlignment="textEnd" />
-            <TextView
-                android:text="TextView"
-                android:id="@+id/eiTimeUntilDate"
-                android:layout_marginLeft="10dp" />
-        </TableRow>
-    </TableLayout>
+        custom:dateLabel="@string/dueDateLabel"/>
 
     <Button
         android:text="@string/save"
@@ -86,7 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eiEditDateBtn"
-        android:layout_below="@+id/eiDatesTable"
-        android:onClick="onEditDate"/>
+        android:layout_below="@+id/eiDatesView"
+        android:onClick="onEditDate"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
