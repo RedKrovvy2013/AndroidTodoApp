@@ -7,7 +7,12 @@
     <!--http://stackoverflow.com/questions/20329794/relativelayout-alignment-rules-dont-work-in-dialogfragment-->
 <RelativeLayout
     android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:minWidth="400dp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <NumberPicker
         android:layout_width="wrap_content"
@@ -39,15 +44,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/edSaveBtn" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/edSaveBtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edTimePicker"
         android:timePickerMode="spinner"
-        android:layout_marginTop="46dp"
         android:layout_above="@+id/edDatePicker"
         android:layout_centerHorizontal="true" />
 
@@ -57,6 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="@dimen/datesView_marginBottom"
         custom:dateLabel="@string/dueDateLabel"/>
 
 </RelativeLayout>

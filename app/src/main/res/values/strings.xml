@@ -35,8 +35,8 @@
     <string name="period_1_month_to_2_years">In over a month</string>
     <string name="past_due">Past due</string>
     <string name="save">Save</string>
-    <string name="dueDateLabel">Due Date:</string>
-    <string name="futureDateLabel">Future Date:</string>
-    <string name="timeUntilDateLabel">Time Until Date:</string>
+    <string name="dueDateLabel">Due Date</string>
+    <string name="futureDateLabel">Future Date</string>
+    <string name="timeUntilDateLabel">Time Until Date</string>
     <string name="edit">Edit</string>
 </resources>

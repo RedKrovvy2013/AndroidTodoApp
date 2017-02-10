@@ -50,7 +50,7 @@ public class EditItemActivity extends AppCompatActivity
         //dependent upon above inits
         update();
 
-//        hideSoftKeyboard();
+        hideSoftKeyboard();
     }
 
     private void update() {
@@ -68,20 +68,13 @@ public class EditItemActivity extends AppCompatActivity
         else
             radioGroup.check(R.id.rbHigh);
 
-//        updateDateRepresentations();
         datudView.setDate(dueDate);
     }
 
     public void onSaveEdit(View v) {
-
-        int id= radioGroup.getCheckedRadioButtonId();
-        View radioButton = radioGroup.findViewById(id);
-        int radioId = radioGroup.indexOfChild(radioButton);
-        RadioButton radioBtn = (RadioButton) radioGroup.getChildAt(radioId);
-
         Intent data = new Intent();
         data.putExtra("todoText", et.getText().toString());
-        data.putExtra("todoPriority", radioBtn.getText().toString());
+        data.putExtra("todoPriority", getSelectedPriorityText());
         data.putExtra("todoPos", todoPos);
 
         CalendarParcel dueDateParcel = new CalendarParcel(dueDate);
@@ -92,10 +85,23 @@ public class EditItemActivity extends AppCompatActivity
     }
 
     public void onEditDate(View v) {
+        todoText = et.getText().toString();
+        todoPriority = getSelectedPriorityText();
+        //this avoids bug of saving due date in due date dialog,
+        //then onFinishEditDialog updating with old todoText and todoPriority
+
         FragmentManager fm = getSupportFragmentManager();
         EditDateDialogFragment editDateDialogFragment =
                 EditDateDialogFragment.newInstance(dueDate);
         editDateDialogFragment.show(fm, "fragment_edit_date");
+    }
+
+    private String getSelectedPriorityText() {
+        int id= radioGroup.getCheckedRadioButtonId();
+        View radioButton = radioGroup.findViewById(id);
+        int radioId = radioGroup.indexOfChild(radioButton);
+        RadioButton radioBtn = (RadioButton) radioGroup.getChildAt(radioId);
+        return radioBtn.getText().toString();
     }
 
     public void onFinishEditDialog(Calendar dueDate) {

@@ -6,4 +6,5 @@
     <color name="colorHigh">#b50000</color>
     <color name="colorMedium">#cc7d00</color>
     <color name="colorLow">#9ab130</color>
+    <color name="blueTextHighlight">#1825cf</color>
 </resources>

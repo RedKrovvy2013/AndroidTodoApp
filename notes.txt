@@ -1,4 +1,6 @@
 
+
+
 Has a Notepad tutorial for making EditText components have
 notepad-lined styling effect.
 https://developer.android.com/samples/index.html

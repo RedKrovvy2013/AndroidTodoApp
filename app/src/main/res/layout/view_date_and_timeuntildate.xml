@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/datesTable">
+    android:layout_height="wrap_content">
 
-    <TableRow>
-        <TextView android:id="@+id/dateLabel"
-            android:text="@string/futureDateLabel"
-            android:textAlignment="textEnd" />
-        <TextView
-            android:text="TextView"
-            android:id="@+id/date"
-            android:layout_marginLeft="10dp"/>
-    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:id="@+id/timeUntilDate"
+        android:textColor="@color/blueTextHighlight"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
 
-    <TableRow>
-        <TextView android:id="@+id/timeUntilDateLabel"
-            android:text="@string/timeUntilDateLabel"
-            android:textAlignment="textEnd" />
-        <TextView
-            android:text="TextView"
-            android:id="@+id/timeUntilDate"
-            android:layout_marginLeft="10dp" />
-    </TableRow>
-</TableLayout>
+    <TextView android:id="@+id/timeUntilDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timeUntilDateLabel"
+        android:textSize="16sp"
+        android:layout_below="@+id/timeUntilDate"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:id="@+id/date"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/timeUntilDateLabel"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blueTextHighlight"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateLabel"
+        android:text="@string/futureDateLabel"
+        android:layout_below="@+id/date"
+        android:textSize="19sp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
