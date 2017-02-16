@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         items = todosDBHelper.getTodos();
 
         //dependent upon todosDBHelper
-//        initPriorities();
+        initPriorities();
 //        items = createDummyItems();
 
         itemsAdapter = new TodosAdapter(this, items);
@@ -184,22 +184,25 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private ArrayList<Todo> createDummyItems() {
+    private void initPriorities() {
+        todosDBHelper.addPriorityIfNotExist(new Priority(getResources().getString(R.string.high)));
+        todosDBHelper.addPriorityIfNotExist(new Priority(getResources().getString(R.string.medium)));
+        todosDBHelper.addPriorityIfNotExist(new Priority(getResources().getString(R.string.low)));
+    }
 
-        TodosDBHelper todosDBHelper = TodosDBHelper.getInstance(this);
-        ArrayList<Priority> priorities = todosDBHelper.getPriorities();
+    private ArrayList<Todo> createDummyItems() {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
         //Note: below assumes at least 3 priorities, which should always be the case.
         todos.add(new Todo(Constants.DUMMY_TODO_1,
-                priorities.get(0).value,
+                getResources().getString(R.string.high),
                 Calendar.getInstance()));
         todos.add(new Todo(Constants.DUMMY_TODO_2,
-                priorities.get(1).value,
+                getResources().getString(R.string.medium),
                 Calendar.getInstance()));
         todos.add(new Todo(Constants.DUMMY_TODO_3,
-                priorities.get(2).value,
+                getResources().getString(R.string.low),
                 Calendar.getInstance()));
 
         return todos;

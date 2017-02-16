@@ -10,6 +10,9 @@ public class Todo implements Comparable<Todo> {
 
     public Todo(String text, String priority, Calendar dueDate) {
 
+        //TODO: have Todo work with a Priority class, and have priorityIndex become
+        //      a member of priority
+
         this.text = text;
         this.priority = priority;
         this.dueDate = dueDate;
