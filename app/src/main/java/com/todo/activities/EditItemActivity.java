@@ -19,8 +19,6 @@ import com.todo.utils.Constants;
 
 import java.util.Calendar;
 
-import static com.todo.utils.Constants.EDIT_DATE_DIALOG_FRAGMENT_TAG_NAME;
-
 public class EditItemActivity extends AppCompatActivity
         implements EditDateDialogFragment.EditDateDialogListener {
 

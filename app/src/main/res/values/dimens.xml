@@ -4,4 +4,15 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="datesView_marginTop">30dp</dimen>
     <dimen name="datesView_marginBottom">20dp</dimen>
+    <dimen name="edDatesView_marginTop">15dp</dimen>
+    <dimen name="edSaveBtn_marginTop">20dp</dimen>
+    <dimen name="edSaveBtn_marginBottom">20dp</dimen>
+    <dimen name="eiSaveBtn_marginTop">100dp</dimen>
+    <dimen name="eiRadioGroup_marginTop">20dp</dimen>
+    <dimen name="eiDatesView_marginTop">60dp</dimen>
+    <dimen name="ivTodoDueDate_marginBottom">6dp</dimen>
+    <dimen name="ivTodoText_marginRight">11dp</dimen>
+    <dimen name="ivTodoText_marginTop">10dp</dimen>
+    <dimen name="ivTodoPriority_marginTop">2dp</dimen>
+    <dimen name="date_marginTop">20dp</dimen>
 </resources>

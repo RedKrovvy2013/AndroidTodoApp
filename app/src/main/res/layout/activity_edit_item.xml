@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/eiDatesView_marginTop"
         android:layout_marginBottom="@dimen/datesView_marginBottom"
         custom:dateLabel="@string/dueDateLabel"/>
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eiSaveBtn"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="@dimen/eiSaveBtn_marginTop"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
@@ -38,7 +38,7 @@
         android:orientation="horizontal"
         android:id="@+id/eiRadioGroup"
         android:layout_above="@+id/eiSaveBtn"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/eiRadioGroup_marginTop"
         android:layout_centerHorizontal="true">
         <RadioButton android:id="@+id/rbHigh"
             android:layout_width="wrap_content"

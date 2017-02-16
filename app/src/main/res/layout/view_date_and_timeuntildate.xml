@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:id="@+id/date"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/date_marginTop"
         android:layout_below="@+id/timeUntilDateLabel"
         android:layout_centerHorizontal="true"
         android:textColor="@color/blueTextHighlight"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <!--Hack for relative layout not working in dialog fragment:-->
@@ -44,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="@dimen/edSaveBtn_marginBottom"
+        android:layout_marginTop="@dimen/edSaveBtn_marginTop"
         android:id="@+id/edSaveBtn"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/edDatesView_marginTop"
         android:layout_marginBottom="@dimen/datesView_marginBottom"
         custom:dateLabel="@string/dueDateLabel"/>
 
