@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -192,14 +191,15 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Todo> todos = new ArrayList<>();
 
+        //Note: below assumes at least 3 priorities, which should always be the case.
         todos.add(new Todo(Constants.DUMMY_TODO_1,
-                priorities.get(ThreadLocalRandom.current().nextInt(0, priorities.size())).value,
+                priorities.get(0).value,
                 Calendar.getInstance()));
         todos.add(new Todo(Constants.DUMMY_TODO_2,
-                priorities.get(ThreadLocalRandom.current().nextInt(0, priorities.size())).value,
+                priorities.get(1).value,
                 Calendar.getInstance()));
         todos.add(new Todo(Constants.DUMMY_TODO_3,
-                priorities.get(ThreadLocalRandom.current().nextInt(0, priorities.size())).value,
+                priorities.get(2).value,
                 Calendar.getInstance()));
 
         return todos;
