@@ -181,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
     //so save data if pause occurs (this covers onStop(), which is after onPause())
     @Override
     protected void onPause() {
-        super.onPause();
         todosDBHelper.saveTodos(items);
+        super.onPause();
     }
 
     private ArrayList<Todo> createDummyItems() {
