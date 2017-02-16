@@ -1,6 +1,7 @@
 package com.todo.fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -55,8 +56,13 @@ public class EditDateDialogFragment extends DialogFragment {
 
 
         TimePicker timePicker = (TimePicker) view.findViewById(R.id.edTimePicker);
-        timePicker.setHour(cal.get(cal.HOUR_OF_DAY));
-        timePicker.setMinute(cal.get(cal.MINUTE));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setHour(cal.get(cal.HOUR_OF_DAY));
+            timePicker.setMinute(cal.get(cal.MINUTE));
+        } else {
+            timePicker.setCurrentHour(cal.get(cal.HOUR_OF_DAY));
+            timePicker.setCurrentMinute(cal.get(cal.MINUTE));
+        }
 
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
                 @Override
