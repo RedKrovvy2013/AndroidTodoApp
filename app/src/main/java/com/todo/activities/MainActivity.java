@@ -11,18 +11,20 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.todo.R;
-import com.todo.utils.CalendarParcel;
 import com.todo.adapters.PrioritiesAdapter;
 import com.todo.adapters.TodosAdapter;
-import com.todo.utils.CommonDueDate;
+import com.todo.db.TodosDBHelper;
 import com.todo.models.Priority;
 import com.todo.models.Todo;
-import com.todo.db.TodosDBHelper;
+import com.todo.utils.CalendarParcel;
+import com.todo.utils.CommonDueDate;
+import com.todo.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -117,12 +119,12 @@ public class MainActivity extends AppCompatActivity {
                         Todo todo = items.get(pos);
 
                         Intent i = new Intent(MainActivity.this, EditItemActivity.class);
-                        i.putExtra("todoText", todo.text);
-                        i.putExtra("todoPriority", todo.priority);
-                        i.putExtra("todoPos", pos);
+                        i.putExtra(Constants.TODO_TEXT_KEY, todo.text);
+                        i.putExtra(Constants.TODO_PRIORITY_KEY, todo.priority);
+                        i.putExtra(Constants.TODO_POS_KEY, pos);
 
                         CalendarParcel calendarParcel = new CalendarParcel(todo.dueDate);
-                        i.putExtra("todoDueDate", calendarParcel);
+                        i.putExtra(Constants.TODO_DUEDATE_KEY, calendarParcel);
 
                         startActivityForResult(i, REQUEST_CODE);
                     }
@@ -136,10 +138,10 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
             Bundle extras = data.getExtras();
-            String todoText = extras.getString("todoText");
-            String todoPriority = extras.getString("todoPriority");
-            int todoPos = extras.getInt("todoPos", 0);
-            CalendarParcel calendarParcel = extras.getParcelable("todoDueDate");
+            String todoText = extras.getString(Constants.TODO_TEXT_KEY);
+            String todoPriority = extras.getString(Constants.TODO_PRIORITY_KEY);
+            int todoPos = extras.getInt(Constants.TODO_POS_KEY, 0);
+            CalendarParcel calendarParcel = extras.getParcelable(Constants.TODO_DUEDATE_KEY);
 
             Todo todo = new Todo(todoText, todoPriority, calendarParcel.cal);
             items.set(todoPos, todo);
@@ -185,18 +187,21 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Todo> createDummyItems() {
 
+        TodosDBHelper todosDBHelper = TodosDBHelper.getInstance(this);
+        ArrayList<Priority> priorities = todosDBHelper.getPriorities();
+
         ArrayList<Todo> todos = new ArrayList<>();
 
-        todos.add(new Todo("Clean kitchen.", "HIGH", Calendar.getInstance()));
-        todos.add(new Todo("Do taxes, file 1099s.", "MEDIUM", Calendar.getInstance()));
-        todos.add(new Todo("Take out the garbage before Tuesday.", "LOW", Calendar.getInstance()));
+        todos.add(new Todo(Constants.DUMMY_TODO_1,
+                priorities.get(ThreadLocalRandom.current().nextInt(0, priorities.size())).value,
+                Calendar.getInstance()));
+        todos.add(new Todo(Constants.DUMMY_TODO_2,
+                priorities.get(ThreadLocalRandom.current().nextInt(0, priorities.size())).value,
+                Calendar.getInstance()));
+        todos.add(new Todo(Constants.DUMMY_TODO_3,
+                priorities.get(ThreadLocalRandom.current().nextInt(0, priorities.size())).value,
+                Calendar.getInstance()));
 
         return todos;
-    }
-
-    private void initPriorities() {
-        todosDBHelper.addPriorityIfNotExist(new Priority("HIGH"));
-        todosDBHelper.addPriorityIfNotExist(new Priority("MEDIUM"));
-        todosDBHelper.addPriorityIfNotExist(new Priority("LOW"));
     }
 }

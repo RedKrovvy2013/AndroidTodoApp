@@ -15,8 +15,11 @@ import com.todo.R;
 import com.todo.utils.CalendarParcel;
 import com.todo.ui.DateAndTimeUntilDateView;
 import com.todo.fragments.EditDateDialogFragment;
+import com.todo.utils.Constants;
 
 import java.util.Calendar;
+
+import static com.todo.utils.Constants.EDIT_DATE_DIALOG_FRAGMENT_TAG_NAME;
 
 public class EditItemActivity extends AppCompatActivity
         implements EditDateDialogFragment.EditDateDialogListener {
@@ -36,12 +39,12 @@ public class EditItemActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-        todoText = getIntent().getStringExtra("todoText");
-        todoPriority = getIntent().getStringExtra("todoPriority");
-        todoPos = getIntent().getIntExtra("todoPos", 0);
+        todoText = getIntent().getStringExtra(Constants.TODO_TEXT_KEY);
+        todoPriority = getIntent().getStringExtra(Constants.TODO_PRIORITY_KEY);
+        todoPos = getIntent().getIntExtra(Constants.TODO_POS_KEY, 0);
 
         CalendarParcel dueDateParcel = (CalendarParcel) getIntent()
-                                                    .getParcelableExtra("todoDueDate");
+                                                    .getParcelableExtra(Constants.TODO_DUEDATE_KEY);
         dueDate = dueDateParcel.cal;
 
         et = (EditText) findViewById(R.id.eiEditText);
@@ -62,6 +65,8 @@ public class EditItemActivity extends AppCompatActivity
         et.setText(todoText);
         et.setSelection(et.getText().length());
 
+        //TODO: synchronize below with db's priorities, as they could
+        //      change in number and wording
         if(todoPriority.equals(res.getString(R.string.high)))
             radioGroup.check(R.id.rbHigh);
         else if(todoPriority.equals(res.getString(R.string.medium)))
@@ -76,12 +81,12 @@ public class EditItemActivity extends AppCompatActivity
 
     public void onSaveEdit(View v) {
         Intent data = new Intent();
-        data.putExtra("todoText", et.getText().toString());
-        data.putExtra("todoPriority", getSelectedPriorityText());
-        data.putExtra("todoPos", todoPos);
+        data.putExtra(Constants.TODO_TEXT_KEY, et.getText().toString());
+        data.putExtra(Constants.TODO_PRIORITY_KEY, getSelectedPriorityText());
+        data.putExtra(Constants.TODO_POS_KEY, todoPos);
 
         CalendarParcel dueDateParcel = new CalendarParcel(dueDate);
-        data.putExtra("todoDueDate", dueDateParcel);
+        data.putExtra(Constants.TODO_DUEDATE_KEY, dueDateParcel);
 
         setResult(RESULT_OK, data);
         finish();
@@ -95,8 +100,8 @@ public class EditItemActivity extends AppCompatActivity
 
         FragmentManager fm = getSupportFragmentManager();
         EditDateDialogFragment editDateDialogFragment =
-                EditDateDialogFragment.newInstance(dueDate);
-        editDateDialogFragment.show(fm, "fragment_edit_date");
+                EditDateDialogFragment.newInstance(dueDate, this);
+        editDateDialogFragment.show(fm, Constants.EDIT_DATE_DIALOG_FRAGMENT_TAG_NAME);
     }
 
     private String getSelectedPriorityText() {

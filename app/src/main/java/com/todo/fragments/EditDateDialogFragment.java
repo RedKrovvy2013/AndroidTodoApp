@@ -1,5 +1,6 @@
 package com.todo.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,8 +12,9 @@ import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
 import com.todo.R;
-import com.todo.utils.CalendarParcel;
 import com.todo.ui.DateAndTimeUntilDateView;
+import com.todo.utils.CalendarParcel;
+import com.todo.utils.Constants;
 
 import java.util.Calendar;
 
@@ -24,12 +26,12 @@ public class EditDateDialogFragment extends DialogFragment {
 
     public EditDateDialogFragment() {}
 
-    public static EditDateDialogFragment newInstance(Calendar date) {
+    public static EditDateDialogFragment newInstance(Calendar date, Context context) {
         EditDateDialogFragment frag = new EditDateDialogFragment();
         Bundle args = new Bundle();
 
         CalendarParcel dateParcel = new CalendarParcel(date);
-        args.putParcelable("date", dateParcel);
+        args.putParcelable(Constants.DATE_KEY, dateParcel);
         frag.setArguments(args);
 
         return frag;
@@ -45,7 +47,7 @@ public class EditDateDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CalendarParcel dateParcel = getArguments().getParcelable("date");
+        CalendarParcel dateParcel = getArguments().getParcelable(Constants.DATE_KEY);
         cal = dateParcel.cal;
 
         datudView = (DateAndTimeUntilDateView) view.findViewById(R.id.eiDatesView);
