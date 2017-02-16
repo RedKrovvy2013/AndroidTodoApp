@@ -1,8 +1,8 @@
-package com.todoapp.models;
+package com.todo.utils;
 
 import android.content.Context;
 
-import com.todoapp.R;
+import com.todo.R;
 
 import java.util.ArrayList;
 

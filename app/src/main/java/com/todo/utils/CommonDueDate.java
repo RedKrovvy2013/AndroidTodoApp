@@ -1,4 +1,4 @@
-package com.todoapp.models;
+package com.todo.utils;
 
 public class CommonDueDate {
     public int dateType;

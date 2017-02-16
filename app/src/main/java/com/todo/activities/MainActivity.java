@@ -1,4 +1,4 @@
-package com.todoapp.mainpage;
+package com.todo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +10,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.todoapp.R;
-import com.todoapp.editpage.CalendarParcel;
-import com.todoapp.editpage.EditItemActivity;
-import com.todoapp.models.CommonDueDate;
-import com.todoapp.models.Priority;
-import com.todoapp.models.Todo;
-import com.todoapp.models.TodosDBHelper;
+import com.todo.R;
+import com.todo.utils.CalendarParcel;
+import com.todo.adapters.PrioritiesAdapter;
+import com.todo.adapters.TodosAdapter;
+import com.todo.utils.CommonDueDate;
+import com.todo.models.Priority;
+import com.todo.models.Todo;
+import com.todo.db.TodosDBHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;

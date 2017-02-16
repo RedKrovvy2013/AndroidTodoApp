@@ -1,4 +1,4 @@
-package com.todoapp.editpage;
+package com.todo.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,7 +11,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.todoapp.R;
+import com.todo.R;
+import com.todo.utils.CalendarParcel;
+import com.todo.ui.DateAndTimeUntilDateView;
+import com.todo.fragments.EditDateDialogFragment;
 
 import java.util.Calendar;
 

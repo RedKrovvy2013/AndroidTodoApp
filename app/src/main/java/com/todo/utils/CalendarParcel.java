@@ -1,4 +1,4 @@
-package com.todoapp.editpage;
+package com.todo.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;

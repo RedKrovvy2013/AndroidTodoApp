@@ -1,4 +1,4 @@
-package com.todoapp.mainpage;
+package com.todo.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.todoapp.models.Priority;
+import com.todo.models.Priority;
 
 import java.util.ArrayList;
 

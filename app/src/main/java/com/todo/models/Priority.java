@@ -1,4 +1,4 @@
-package com.todoapp.models;
+package com.todo.models;
 
 public class Priority {
     public String value;

@@ -1,4 +1,4 @@
-package com.todoapp.models;
+package com.todo.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.todo.models.Priority;
+import com.todo.models.Todo;
 
 import java.util.ArrayList;
 import java.util.Calendar;

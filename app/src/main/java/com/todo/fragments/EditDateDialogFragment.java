@@ -1,4 +1,4 @@
-package com.todoapp.editpage;
+package com.todo.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
-import com.todoapp.R;
+import com.todo.R;
+import com.todo.utils.CalendarParcel;
+import com.todo.ui.DateAndTimeUntilDateView;
 
 import java.util.Calendar;
 

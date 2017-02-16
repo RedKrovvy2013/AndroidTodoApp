@@ -1,4 +1,4 @@
-package com.todoapp.mainpage;
+package com.todo.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.todoapp.R;
-import com.todoapp.models.TimeUntilDuePeriods;
-import com.todoapp.models.Todo;
+import com.todo.R;
+import com.todo.utils.TimeUntilDuePeriods;
+import com.todo.models.Todo;
 
 import java.util.ArrayList;
 import java.util.Calendar;

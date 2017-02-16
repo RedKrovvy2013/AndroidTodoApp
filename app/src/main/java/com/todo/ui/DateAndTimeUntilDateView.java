@@ -1,4 +1,4 @@
-package com.todoapp.editpage;
+package com.todo.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.todoapp.R;
+import com.todo.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
