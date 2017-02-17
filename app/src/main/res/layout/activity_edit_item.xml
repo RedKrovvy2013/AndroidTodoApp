@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.todo.activities.EditItemActivity">
+    tools:context="com.todo.activities.EditItemActivity"
+    android:background="@drawable/bg_gradient">
 
     <com.todo.ui.DateAndTimeUntilDateView
         android:id="@+id/eiDatesView"
@@ -30,7 +31,9 @@
         android:layout_marginTop="@dimen/eiSaveBtn_marginTop"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@color/btnBg"
+        android:textColor="@color/btnText" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -44,17 +47,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/high"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textColor="@color/controlsWhite" />
         <RadioButton android:id="@+id/rbMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/medium"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textColor="@color/controlsWhite" />
         <RadioButton android:id="@+id/rbLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/low"
-            android:textSize="18dp"/>
+            android:textSize="18dp"
+            android:textColor="@color/controlsWhite" />
     </RadioGroup>
 
     <EditText
@@ -65,7 +71,8 @@
         android:id="@+id/eiEditText"
         android:layout_above="@+id/eiRadioGroup"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/controlsWhite" />
 
     <Button
         android:text="@string/edit"
@@ -74,6 +81,8 @@
         android:id="@+id/eiEditDateBtn"
         android:layout_below="@+id/eiDatesView"
         android:onClick="onEditDate"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:background="@color/btnBg"
+        android:textColor="@color/btnText" />
 
 </RelativeLayout>

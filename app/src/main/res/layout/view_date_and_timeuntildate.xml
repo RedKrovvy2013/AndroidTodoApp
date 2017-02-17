@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:id="@+id/timeUntilDate"
-        android:textColor="@color/blueTextHighlight"
+        android:textColor="@color/ivTodoText"
         android:layout_centerHorizontal="true"
         android:textSize="18sp" />
 
@@ -18,7 +18,8 @@
         android:text="@string/timeUntilDateLabel"
         android:textSize="16sp"
         android:layout_below="@+id/timeUntilDate"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/controlsWhite" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
         android:layout_marginTop="@dimen/date_marginTop"
         android:layout_below="@+id/timeUntilDateLabel"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/blueTextHighlight"
+        android:textColor="@color/ivTodoText"
         android:textSize="24sp" />
 
     <TextView
@@ -38,6 +39,7 @@
         android:text="@string/futureDateLabel"
         android:layout_below="@+id/date"
         android:textSize="19sp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/controlsWhite" />
 
 </RelativeLayout>
