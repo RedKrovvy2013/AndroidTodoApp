@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         PrioritiesAdapter adapterP = new PrioritiesAdapter(this, priorities);
 
-        adapterP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterP.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerP.setAdapter(adapterP);
 
         //-----------------------------------------
@@ -92,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinnerD = (Spinner) findViewById(R.id.spinnerDueDate);
 
         ArrayAdapter<CharSequence> adapterD = ArrayAdapter.createFromResource(this,
-                R.array.duedate_values, android.R.layout.simple_spinner_item);
+                R.array.duedate_values, R.layout.spinner_item);
 
-        adapterD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterD.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerD.setAdapter(adapterD);
     }
 

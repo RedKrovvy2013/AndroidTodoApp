@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.todo.R;
 import com.todo.models.Priority;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class PrioritiesAdapter extends ArrayAdapter<Priority> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
-                                    .inflate(android.R.layout.simple_spinner_item, parent, false);
+                                    .inflate(R.layout.spinner_item, parent, false);
         }
 
         TextView textView = (TextView) convertView.findViewById(android.R.id.text1);

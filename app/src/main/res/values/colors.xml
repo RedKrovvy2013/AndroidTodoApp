@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="dropdownItemText">#e8e8e8</color>
+    <color name="dropdownBackground">#8a9ea9</color>
+    <color name="background">#00577d</color>
+    <color name="backgroundGradient">#00678d</color>
+    <color name="backgroundBottom">#00446f</color>
+    <color name="ivTodoText">#00adbc</color>
+    <color name="ivTodoDueDate">#9d9d9d</color>
+    <color name="ivDivider">#5c5c5c</color>
+    <color name="controlsWhite">#cecece</color>
+    <color name="btnBg">#4e7991</color>
+    <color name="btnText">#59af8d</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorHigh">#b50000</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="colorHigh">#911b1b</color>
     <color name="colorMedium">#cc7d00</color>
     <color name="colorLow">#9ab130</color>
     <color name="blueTextHighlight">#1825cf</color>
