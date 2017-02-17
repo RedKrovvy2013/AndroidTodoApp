@@ -4,7 +4,7 @@
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/rmw3EZ9.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/dMLNerg.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -12,7 +12,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Submitted by: **Michael Cirone**
 
-Time spent: **60** hours spent in total
+Time spent: **68** hours spent in total
 
 ## User Stories
 
@@ -29,7 +29,7 @@ The following **optional** features are implemented:
 * [X] Add support for completion due dates for todo items (and display within listview item)
 * [X] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [X] Add support for selecting the priority of each todo item (and display in listview item)
-* [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
+* [X] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 The following **additional** features are implemented:
 
