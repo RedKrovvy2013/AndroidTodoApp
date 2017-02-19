@@ -4,7 +4,7 @@
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/dMLNerg.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/XJKMRqv.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -12,7 +12,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Submitted by: **Michael Cirone**
 
-Time spent: **68** hours spent in total
+Time spent: **80** hours spent in total
 
 ## User Stories
 
@@ -33,8 +33,10 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [X] Todo list sorts first on priority, then text of todo, after all add/edit actions.
+* [X] Created and integrated priority graphics.
+* [X] Added animated highlighting for added/edited todo, so that user can easily see their recently added/edited item.
 * [X] When editing todo due date, user can see the time duration until the due date alongside the due date.
+* [X] Todo list sorts first on priority, then text of todo, after all add/edit actions.
 
 ## License
 
